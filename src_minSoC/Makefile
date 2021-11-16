@@ -55,12 +55,8 @@ BSC_COMPILATION_FLAGS = \
 			$(BSC_COMPILATION_ISA_FLAGS) \
 			$(BSC_COMPILATION_UARCH_FLAGS) \
 			$(BSC_COMPILATION_NM_FLAGS) \
-# BSC_COMPILATION_FLAGS = \
-                          BSC_COMPILATION_ISA_FLAGS \
-			  BSC_COMPILATION_UARCH_FLAGS \
-			  BSC_COMPILATION_NM_FLAGS \
-			  BSC_COMPILATION_DM_FLAGS \
 
+BSC_COMPILATION_FLAGS += $(TCM_Sizes)
 
 # ================================================================
 # Search path for bsc for .bsv files
@@ -69,7 +65,7 @@ CORE_DIRS = $(REPO)/src_Core/CPU:$(REPO)/src_Core/ISA:$(REPO)/src_Core/RegFiles:
 
 TESTBENCH_DIRS  = $(REPO)/src_Testbench/Fabrics/AXI4
 
-BSC_PATH = -p $(CORE_DIRS):src_BSV:$(TESTBENCH_DIRS):+:%/Libraries/TLM3:%/Libraries/Axi:%/Libraries/Axi4
+BSC_PATH = -p $(CORE_DIRS):src_BSV:$(TESTBENCH_DIRS):+
 
 # ----------------
 # Top-level file and module
@@ -83,7 +79,7 @@ TOPMODULE = mkBSCore
 BSC_COMPILATION_FLAGS += \
 	-keep-fires -aggressive-conditions -no-warn-action-shadowing -no-show-timestamps \
 	-suppress-warnings G0020    \
-	+RTS -K128M -RTS  -show-range-conflict
+	+RTS -K128M -RTS  -show-range-conflict \
 
 # ================================================================
 # Generate Verilog RTL from BSV sources (needs Bluespec 'bsc' compiler)
